@@ -1,0 +1,41 @@
+{
+	"info": {
+		"_postman_id": "9d220ff8-87d3-4b6d-b02f-1313ee175aec",
+		"name": "Test Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Ping Google.com",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a2e13157-1618-4254-a09f-6699e0501f91",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://google.com",
+					"protocol": "https",
+					"host": [
+						"google",
+						"com"
+					]
+				},
+				"description": "Ping google.com and ensure a valid result"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
