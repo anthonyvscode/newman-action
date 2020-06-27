@@ -9,9 +9,12 @@
 ### Local collection file
 
 ```yaml
+- name: Checkout
+  uses: actions/checkout@v1
+
 - name: Run API Tests
   id: run-newman
-  uses: ./anthonyvscode/newman-action@master
+  uses: anthonyvscode/newman-action@v1
   with:
     collection: collection.json
     reporters: cli
@@ -23,9 +26,12 @@
 ### Hosted collection file
 
 ```yaml
+- name: Checkout
+  uses: actions/checkout@v1
+
 - name: Run API Tests
   id: run-newman
-  uses: ./anthonyvscode/newman-action@master
+  uses: anthonyvscode/newman-action@v1
   with:
     collection: http://example.com/collection.json
     reporters: cli
@@ -39,9 +45,13 @@
 See [Postman API](https://docs.api.getpostman.com/?version=latest) for full functionality.
 
 ```yaml
+
+- name: Checkout
+  uses: actions/checkout@v1
+
 - name: Run API Tests
   id: run-newman
-  uses: ./anthonyvscode/newman-action@master
+  uses: anthonyvscode/newman-action@v1
   with:
     apiKey: ${{ secrets.postmanApiKey }}
     collection: bab22df3-0221-0251-5849-b34eab2bfa49
