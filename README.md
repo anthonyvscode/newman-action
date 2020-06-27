@@ -36,8 +36,7 @@
 
 ### Postman API
 
-See Postman API 
-https://docs.api.getpostman.com/?version=latest
+See [Postman API](https://docs.api.getpostman.com/?version=latest) for full functionality.
 
 ```yaml
 - name: Run API Tests
