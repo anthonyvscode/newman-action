@@ -1,8 +1,8 @@
-name: 'Newman Runner Action'
-description: 'Run Postman collections via Newman'
+name: 'Newman CLI Runner'
+description: 'Run Postman collections via Newman CLI'
 author: 'Anthony Zigenbine'
 branding:
-  icon: 'check-square'  
+  icon: 'terminal'  
   color: 'orange'
 inputs:
   apiKey:
