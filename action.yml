@@ -1,5 +1,5 @@
 name: 'Newman CLI Runner'
-description: 'Run Postman collections via Newman CLI'
+description: 'Run Postman Collections via Newman CLI'
 author: 'Anthony Zigenbine'
 branding:
   icon: 'terminal'  
