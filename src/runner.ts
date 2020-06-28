@@ -39,15 +39,15 @@ export async function createOptions(): Promise<newman.NewmanRunOptions> {
         core.getInput('environment')
       ),
       globals: core.getInput('globals'),
-      iterationCount: GetNumberResultAndValidate('iterationCount'),
+      iterationCount: getNumberResultAndValidate('iterationCount'),
       iterationData: core.getInput('iterationData'),
       folder: (core.getInput('folder') || '').split(','),
       workingDir: core.getInput('workingDir'),
       insecureFileRead: Boolean(core.getInput('insecureFileRead')),
-      timeout: GetNumberResultAndValidate(core.getInput('timeout')),
-      timeoutRequest: GetNumberResultAndValidate('timeoutRequest'),
-      timeoutScript: GetNumberResultAndValidate('timeoutScript'),
-      delayRequest: GetNumberResultAndValidate('delayRequest'),
+      timeout: getNumberResultAndValidate(core.getInput('timeout')),
+      timeoutRequest: getNumberResultAndValidate('timeoutRequest'),
+      timeoutScript: getNumberResultAndValidate('timeoutScript'),
+      delayRequest: getNumberResultAndValidate('delayRequest'),
       ignoreRedirects: Boolean(core.getInput('ignoreRedirects')),
       insecure: Boolean(core.getInput('insecure')),
       bail: Boolean(core.getInput('bail')),
@@ -64,10 +64,13 @@ export async function createOptions(): Promise<newman.NewmanRunOptions> {
   })
 }
 
-function GetNumberResultAndValidate(propertyName: string): number | undefined {
+export function getNumberResultAndValidate(
+  propertyName: string
+): number | undefined {
   const value = core.getInput(propertyName)
   const number = Number(value)
   if (isNaN(number)) throw new Error(`${propertyName} needs to be a number`)
+
   return utils.getNumberOrUndefined(value)
 }
 

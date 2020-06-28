@@ -25,7 +25,8 @@ describe('createOptions tests', () => {
       collection: './collection.json',
       iterationCount: 1,
       insecureFileRead: true,
-      delayRequest: 0
+      delayRequest: 0,
+      color: 'auto'
     }
   })
 

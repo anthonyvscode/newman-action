@@ -1,6 +1,3 @@
-import * as process from 'process'
-import * as cp from 'child_process'
-import * as path from 'path'
 import * as utils from '../src/utils'
 
 test('successfully parses number', () => {

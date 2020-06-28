@@ -30,7 +30,6 @@ inputs:
   workingDir:
     description: 'Path to be used as working directory'
     required: false
-    default: .
   insecureFileRead:
     description: 'Allow reading files outside of working directory'
     default: true
