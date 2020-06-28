@@ -1,6 +1,3 @@
-import * as process from 'process'
-import * as cp from 'child_process'
-import * as path from 'path'
 import * as core from '@actions/core'
 import * as runner from '../src/runner'
 import * as newman from 'newman'
@@ -12,7 +9,7 @@ describe('createOptions tests', () => {
   beforeAll(() => {
     // Mock getInput
     jest.spyOn(core, 'getInput').mockImplementation((name: string) => {
-      return inputs[name]
+      return inputs[name] || '' // This is how core.getInput() works. If there is no value set, it returns an empty string, not undefined.
     })
 
     // Mock error/warning/info/debug
@@ -24,7 +21,12 @@ describe('createOptions tests', () => {
 
   beforeEach(() => {
     // Reset inputs
-    inputs = {}
+    inputs = {
+      collection: './collection.json',
+      iterationCount: 1,
+      insecureFileRead: true,
+      delayRequest: 0
+    }
   })
 
   afterAll(() => {
@@ -33,7 +35,6 @@ describe('createOptions tests', () => {
   })
 
   test('sets defaults', async () => {
-    inputs.collection = './collection.json'
     const options: newman.NewmanRunOptions = await runner.createOptions()
     expect(options).toBeTruthy()
     expect(options.iterationCount).toBe(1)
@@ -44,6 +45,7 @@ describe('createOptions tests', () => {
   /* Collection Property Tests */
 
   test('collection: check required', async () => {
+    inputs.collection = ''
     await expect(runner.createOptions()).rejects.toThrow(
       'collection is required'
     )
@@ -87,14 +89,12 @@ describe('createOptions tests', () => {
   })
 
   test('environment: assigns property to external url', async () => {
-    inputs.collection = './collection.json'
     inputs.environment = 'http://example.com/environment.json'
     const options = await runner.createOptions()
     await expect(options.environment).toEqual(inputs.environment)
   })
 
   test('environment: requires apiKey when environment is set to uuid', async () => {
-    inputs.collection = './collection.json'
     inputs.environment = 'bab22df3-0221-0251-5849-b34eab2bfa49'
     await expect(runner.createOptions()).rejects.toThrow(
       `apiKey is required when using environment_uuid`
@@ -102,7 +102,6 @@ describe('createOptions tests', () => {
   })
 
   test('environment: creates postman url when environment_uuid is set', async () => {
-    inputs.collection = './collection.json'
     inputs.environment = 'bab22df3-0221-0251-5849-b34eab2bfa49'
     inputs.apiKey = 'test123'
     const options = await runner.createOptions()
@@ -110,4 +109,6 @@ describe('createOptions tests', () => {
       `https://api.getpostman.com/environments/${inputs.environment}?apikey=${inputs.apiKey}`
     )
   })
+
+  /* */
 })

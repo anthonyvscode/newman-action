@@ -1,0 +1,26 @@
+import * as process from 'process'
+import * as cp from 'child_process'
+import * as path from 'path'
+import * as utils from '../src/utils'
+
+test('successfully parses number', () => {
+  var input = '123'
+  var result = utils.getNumberOrUndefined(input)
+  expect(result).toBe(123)
+})
+
+test('successfully parses invalid number as undefined', () => {
+  var input = 'abcd123'
+  var result = utils.getNumberOrUndefined(input)
+  expect(result).toBe(undefined)
+})
+
+test('successfully parses empty string as undefined', () => {
+  var result = utils.getNumberOrUndefined(null)
+  expect(result).toBe(undefined)
+})
+
+test('successfully parses null as undefined', () => {
+  var result = utils.getNumberOrUndefined(null)
+  expect(result).toBe(undefined)
+})

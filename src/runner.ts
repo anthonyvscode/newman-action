@@ -1,5 +1,6 @@
 import * as core from '@actions/core'
 import * as newman from 'newman'
+import * as utils from './utils'
 
 export async function run(
   options: newman.NewmanRunOptions
@@ -16,7 +17,6 @@ export async function run(
         } else {
           core.debug('collection run completed.')
         }
-
         resolve(summary)
       })
   })
@@ -31,23 +31,23 @@ export async function createOptions(): Promise<newman.NewmanRunOptions> {
 
     const options: newman.NewmanRunOptions = {
       collection: getCollection(
-        core.getInput('apiKey') || '',
-        core.getInput('collection') || ''
+        core.getInput('apiKey'),
+        core.getInput('collection')
       ),
       environment: getEnvironment(
-        core.getInput('apiKey') || '',
-        core.getInput('environment') || ''
+        core.getInput('apiKey'),
+        core.getInput('environment')
       ),
       globals: core.getInput('globals'),
-      iterationCount: Number(core.getInput('iterationCount')) || 1,
+      iterationCount: GetNumberResultAndValidate('iterationCount'),
       iterationData: core.getInput('iterationData'),
       folder: (core.getInput('folder') || '').split(','),
       workingDir: core.getInput('workingDir'),
       insecureFileRead: Boolean(core.getInput('insecureFileRead')),
-      timeout: Number(core.getInput('timeout')),
-      timeoutRequest: Number(core.getInput('timeoutRequest')),
-      timeoutScript: Number(core.getInput('timeoutScript')),
-      delayRequest: Number(core.getInput('delayRequest')) || 0,
+      timeout: GetNumberResultAndValidate(core.getInput('timeout')),
+      timeoutRequest: GetNumberResultAndValidate('timeoutRequest'),
+      timeoutScript: GetNumberResultAndValidate('timeoutScript'),
+      delayRequest: GetNumberResultAndValidate('delayRequest'),
       ignoreRedirects: Boolean(core.getInput('ignoreRedirects')),
       insecure: Boolean(core.getInput('insecure')),
       bail: Boolean(core.getInput('bail')),
@@ -62,6 +62,13 @@ export async function createOptions(): Promise<newman.NewmanRunOptions> {
 
     resolve(options)
   })
+}
+
+function GetNumberResultAndValidate(propertyName: string): number | undefined {
+  const value = core.getInput(propertyName)
+  const number = Number(value)
+  if (isNaN(number)) throw new Error(`${propertyName} needs to be a number`)
+  return utils.getNumberOrUndefined(value)
 }
 
 export function getCollection(apiKey: string, collection: string): string {
