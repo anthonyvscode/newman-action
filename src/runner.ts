@@ -41,18 +41,24 @@ export async function createOptions(): Promise<newman.NewmanRunOptions> {
       globals: core.getInput('globals'),
       iterationCount: getNumberResultAndValidate('iterationCount'),
       iterationData: core.getInput('iterationData'),
-      folder: (core.getInput('folder') || '').split(','),
+      folder: utils.getStringOrUndefined(core.getInput('folder')),
       workingDir: core.getInput('workingDir'),
-      insecureFileRead: Boolean(core.getInput('insecureFileRead')),
+      insecureFileRead: utils.getBooleanOrUndefined(
+        core.getInput('insecureFileRead')
+      ),
       timeout: getNumberResultAndValidate(core.getInput('timeout')),
       timeoutRequest: getNumberResultAndValidate('timeoutRequest'),
       timeoutScript: getNumberResultAndValidate('timeoutScript'),
       delayRequest: getNumberResultAndValidate('delayRequest'),
-      ignoreRedirects: Boolean(core.getInput('ignoreRedirects')),
-      insecure: Boolean(core.getInput('insecure')),
-      bail: Boolean(core.getInput('bail')),
-      suppressExitCode: Boolean(core.getInput('suppressExitCode')),
-      reporters: (core.getInput('reporters') || '').split(','),
+      ignoreRedirects: utils.getBooleanOrUndefined(
+        core.getInput('ignoreRedirects')
+      ),
+      insecure: utils.getBooleanOrUndefined(core.getInput('insecure')),
+      bail: getBailValue(core.getInput('bail')),
+      suppressExitCode: utils.getBooleanOrUndefined(
+        core.getInput('suppressExitCode')
+      ),
+      reporters: utils.getStringOrUndefined(core.getInput('reporters')),
       reporter: core.getInput('reporter'),
       color: getColor(core.getInput('color')),
       sslClientCert: core.getInput('sslClientCert'),
@@ -62,6 +68,18 @@ export async function createOptions(): Promise<newman.NewmanRunOptions> {
 
     resolve(options)
   })
+}
+
+export function getBailValue(
+  value: string
+): boolean | ['folder'] | ['failure'] | undefined {
+  if (!value || value === '') return undefined
+
+  if (value === 'folder') return ['folder']
+
+  if (value === 'failure') return ['failure']
+
+  return utils.getBooleanOrUndefined(value)
 }
 
 export function getNumberResultAndValidate(

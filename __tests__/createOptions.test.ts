@@ -23,10 +23,14 @@ describe('createOptions tests', () => {
     // Reset inputs
     inputs = {
       collection: './collection.json',
-      iterationCount: 1,
-      insecureFileRead: true,
-      delayRequest: 0,
-      color: 'auto'
+      iterationCount: '1',
+      insecureFileRead: 'true',
+      delayRequest: '0',
+      color: 'auto',
+      bail: 'false',
+      suppressExitCode: 'false',
+      insecure: 'false',
+      ignoreRedirects: 'false'
     }
   })
 
@@ -40,7 +44,27 @@ describe('createOptions tests', () => {
     expect(options).toBeTruthy()
     expect(options.iterationCount).toBe(1)
     expect(options.color).toBe('auto')
-    //TODO: Rest of the fields in here
+    expect(options.collection).toBe('./collection.json')
+    expect(options.environment).toBe('')
+    expect(options.globals).toBe('')
+    expect(options.iterationData).toBe('')
+    expect(options.folder).toBe(undefined)
+    expect(options.workingDir).toBe('')
+    expect(options.insecureFileRead).toBe(true)
+    expect(options.timeout).toBe(undefined)
+    expect(options.timeoutRequest).toBe(undefined)
+    expect(options.timeoutScript).toBe(undefined)
+    expect(options.delayRequest).toBe(0)
+    expect(options.ignoreRedirects).toBe(false)
+    expect(options.insecure).toBe(false)
+    expect(options.bail).toBe(false)
+    expect(options.suppressExitCode).toBe(false)
+    expect(options.reporters).toBe(undefined)
+    expect(options.reporter).toBe('')
+    expect(options.color).toBe('auto')
+    expect(options.sslClientCert).toBe('')
+    expect(options.sslClientKey).toBe('')
+    expect(options.sslClientPassphrase).toBe('')
   })
 
   /* Collection Property Tests */
@@ -111,5 +135,18 @@ describe('createOptions tests', () => {
     )
   })
 
-  /* */
+  /* iterationCount tests */
+
+  test('iterationCount: throws error for invalid number', async () => {
+    inputs.iterationCount = 'test'
+    await expect(runner.createOptions()).rejects.toThrow(
+      `iterationCount needs to be a number`
+    )
+  })
+
+  test('iterationCount: sets value for valid number added to iteration count', async () => {
+    inputs.iterationCount = 20
+    const options = await runner.createOptions()
+    await expect(options.iterationCount).toEqual(20)
+  })
 })
