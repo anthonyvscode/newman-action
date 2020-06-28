@@ -72,8 +72,8 @@ See [Postman API](https://docs.api.getpostman.com/?version=latest) for full func
 This action is able to set all parameters listed in the [Newman API Reference documentation](https://www.npmjs.com/package/newman#api-reference)
 
 - `apiKey` (required if collection_uuid is set) - Postman API key
-- `collection` (required) - Path to the JSON, URL or a collection_uuid to query on the newman hosted api
-- `environment` (optional) - Path to the JSON, URL or an environment_uuid to query on the newman hosted api
+- `collection` (required) - Path to the JSON, URL or a collection_uuid to query on the postman hosted api
+- `environment` (optional) - Path to the JSON, URL or an environment_uuid to query on the postman hosted api
 - `globals` (optional) - Path to the JSON or URL where the global JSON is hosted
 - `iterationCount` (optional, default value: `1`) - Number of iterations to run on the collection
 - `iterationData` (optional) - Path to the JSON or CSV file or URL to be used as data source when running multiple iterations on a collection.
