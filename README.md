@@ -19,7 +19,7 @@
     collection: collection.json
     reporters: cli
 
-- name: Export Summary from Outputs
+- name: Output summary to console
   run: echo ${{ steps.run-api-tests.outputs.summary }}
 ```
 
@@ -36,7 +36,7 @@
     collection: http://example.com/collection.json
     reporters: cli
 
-- name: Export Summary from Outputs
+- name: Output summary to console
   run: echo ${{ steps.run-api-tests.outputs.summary }}
 ```
 
@@ -57,7 +57,7 @@ See [Postman API](https://docs.api.getpostman.com/?version=latest) for full func
     collection: bab22df3-0221-0251-5849-b34eab2bfa49
     reporters: cli
 
-- name: Export Summary from Outputs
+- name: Output summary to console
   run: echo ${{ steps.run-api-tests.outputs.summary }}
 ```
 
