@@ -30,10 +30,9 @@ inputs:
   workingDir:
     description: 'Path to be used as working directory'
     required: false
-    default: .
   insecureFileRead:
     description: 'Allow reading files outside of working directory'
-    default: true
+    default: 'true'
     required: false
   timeout:
     description: 'Time to wait for the collection run to complete'
@@ -46,7 +45,7 @@ inputs:
     required: false
   delayRequest:
     description: 'Time to wait between subsequent requests'
-    default: 0
+    default: '0'
     required: false
   ignoreRedirects:
     description: 'Follow 3xx responses'
@@ -54,12 +53,15 @@ inputs:
   insecure:
     description: 'Disable SSL verification and allow self-signed SSL'
     required: false
+    default: 'false'
   bail:
     description: 'Stop collection run gracefully on error'
     required: false
+    default: 'false'
   suppressExitCode:
     description: 'Always exit cleanly'
     required: false
+    default: 'false'
   reporters:
     description: 'Reporter to use'
     required: false

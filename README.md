@@ -19,8 +19,8 @@
     collection: collection.json
     reporters: cli
 
-- name: Output Summary JSON
-  run: echo "${{ steps.create.run-newman.summary }}"
+- name: Output summary to console
+  run: echo ${{ steps.run-api-tests.outputs.summary }}
 ```
 
 ### Hosted collection file
@@ -36,8 +36,8 @@
     collection: http://example.com/collection.json
     reporters: cli
 
-- name: Output Summary JSON
-  run: echo "${{ steps.create.run-newman.summary }}"
+- name: Output summary to console
+  run: echo ${{ steps.run-api-tests.outputs.summary }}
 ```
 
 ### Postman API
@@ -57,8 +57,8 @@ See [Postman API](https://docs.api.getpostman.com/?version=latest) for full func
     collection: bab22df3-0221-0251-5849-b34eab2bfa49
     reporters: cli
 
-- name: Output Summary JSON
-  run: echo "${{ steps.create.run-newman.summary }}"
+- name: Output summary to console
+  run: echo ${{ steps.run-api-tests.outputs.summary }}
 ```
 
 ----
@@ -97,8 +97,8 @@ This action is able to set all parameters listed in the [Newman API Reference do
 
 ### Outputs
 
-- `summary_full` (JSON object) - Full summary as returned from the run. JSON string.
-- `summary` (JSON object) - condensed summary consisting of these summary items only
+- `summary_full` (JSON object) - Full summary as returned from the run.
+- `summary` (JSON object) - condensed summary consisting of these summary items only:
 
 ```
 Collection.Info.Name

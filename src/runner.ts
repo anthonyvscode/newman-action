@@ -1,5 +1,6 @@
 import * as core from '@actions/core'
 import * as newman from 'newman'
+import * as utils from './utils'
 
 export async function run(
   options: newman.NewmanRunOptions
@@ -16,7 +17,6 @@ export async function run(
         } else {
           core.debug('collection run completed.')
         }
-
         resolve(summary)
       })
   })
@@ -31,28 +31,34 @@ export async function createOptions(): Promise<newman.NewmanRunOptions> {
 
     const options: newman.NewmanRunOptions = {
       collection: getCollection(
-        core.getInput('apiKey') || '',
-        core.getInput('collection') || ''
+        core.getInput('apiKey'),
+        core.getInput('collection')
       ),
       environment: getEnvironment(
-        core.getInput('apiKey') || '',
-        core.getInput('environment') || ''
+        core.getInput('apiKey'),
+        core.getInput('environment')
       ),
       globals: core.getInput('globals'),
-      iterationCount: Number(core.getInput('iterationCount')) || 1,
+      iterationCount: getNumberResultAndValidate('iterationCount'),
       iterationData: core.getInput('iterationData'),
-      folder: (core.getInput('folder') || '').split(','),
+      folder: utils.getStringOrUndefined(core.getInput('folder')),
       workingDir: core.getInput('workingDir'),
-      insecureFileRead: Boolean(core.getInput('insecureFileRead')),
-      timeout: Number(core.getInput('timeout')),
-      timeoutRequest: Number(core.getInput('timeoutRequest')),
-      timeoutScript: Number(core.getInput('timeoutScript')),
-      delayRequest: Number(core.getInput('delayRequest')) || 0,
-      ignoreRedirects: Boolean(core.getInput('ignoreRedirects')),
-      insecure: Boolean(core.getInput('insecure')),
-      bail: Boolean(core.getInput('bail')),
-      suppressExitCode: Boolean(core.getInput('suppressExitCode')),
-      reporters: (core.getInput('reporters') || '').split(','),
+      insecureFileRead: utils.getBooleanOrUndefined(
+        core.getInput('insecureFileRead')
+      ),
+      timeout: getNumberResultAndValidate(core.getInput('timeout')),
+      timeoutRequest: getNumberResultAndValidate('timeoutRequest'),
+      timeoutScript: getNumberResultAndValidate('timeoutScript'),
+      delayRequest: getNumberResultAndValidate('delayRequest'),
+      ignoreRedirects: utils.getBooleanOrUndefined(
+        core.getInput('ignoreRedirects')
+      ),
+      insecure: utils.getBooleanOrUndefined(core.getInput('insecure')),
+      bail: getBailValue(core.getInput('bail')),
+      suppressExitCode: utils.getBooleanOrUndefined(
+        core.getInput('suppressExitCode')
+      ),
+      reporters: utils.getStringOrUndefined(core.getInput('reporters')),
       reporter: core.getInput('reporter'),
       color: getColor(core.getInput('color')),
       sslClientCert: core.getInput('sslClientCert'),
@@ -62,6 +68,28 @@ export async function createOptions(): Promise<newman.NewmanRunOptions> {
 
     resolve(options)
   })
+}
+
+export function getBailValue(
+  value: string
+): boolean | ['folder'] | ['failure'] | undefined {
+  if (!value || value === '') return undefined
+
+  if (value === 'folder') return ['folder']
+
+  if (value === 'failure') return ['failure']
+
+  return utils.getBooleanOrUndefined(value)
+}
+
+export function getNumberResultAndValidate(
+  propertyName: string
+): number | undefined {
+  const value = core.getInput(propertyName)
+  const number = Number(value)
+  if (isNaN(number)) throw new Error(`${propertyName} needs to be a number`)
+
+  return utils.getNumberOrUndefined(value)
 }
 
 export function getCollection(apiKey: string, collection: string): string {
