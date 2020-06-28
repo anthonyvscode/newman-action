@@ -16,11 +16,6 @@ test('successfully parses invalid number as undefined', () => {
 })
 
 test('successfully parses empty string as undefined', () => {
-  var result = utils.getNumberOrUndefined(null)
-  expect(result).toBe(undefined)
-})
-
-test('successfully parses null as undefined', () => {
-  var result = utils.getNumberOrUndefined(null)
+  var result = utils.getNumberOrUndefined('')
   expect(result).toBe(undefined)
 })
