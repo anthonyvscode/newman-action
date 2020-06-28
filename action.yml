@@ -37,15 +37,12 @@ inputs:
     required: false
   timeout:
     description: 'Time to wait for the collection run to complete'
-    default: Infinity
     required: false
   timeoutRequest:
     description: 'Time to wait for scripts to return a response'
-    default: Infinity
     required: false
   timeoutScript:
     description: 'Time to wait for scripts to return a response'
-    default: Infinity
     required: false
   delayRequest:
     description: 'Time to wait between subsequent requests'
