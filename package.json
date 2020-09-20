@@ -29,7 +29,7 @@
     "newman": "^5.1.0"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.13",
+    "@types/jest": "^26.0.14",
     "@types/newman": "^5.1.1",
     "@types/node": "^12.7.12",
     "@typescript-eslint/parser": "^2.8.0",
