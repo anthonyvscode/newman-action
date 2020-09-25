@@ -25,7 +25,7 @@
   "author": "Anthony Zigenbine",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.5",
+    "@actions/core": "^1.2.6",
     "newman": "^5.1.0"
   },
   "devDependencies": {
