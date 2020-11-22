@@ -20,7 +20,7 @@
     reporters: cli
 
 - name: Output summary to console
-  run: echo ${{ steps.run-api-tests.outputs.summary }}
+  run: echo ${{ steps.run-newman.outputs.summary }}
 ```
 
 ### Hosted collection file
@@ -37,7 +37,7 @@
     reporters: cli
 
 - name: Output summary to console
-  run: echo ${{ steps.run-api-tests.outputs.summary }}
+  run: echo ${{ steps.run-newman.outputs.summary }}
 ```
 
 ### Postman API
@@ -58,7 +58,7 @@ See [Postman API](https://docs.api.getpostman.com/?version=latest) for full func
     reporters: cli
 
 - name: Output summary to console
-  run: echo ${{ steps.run-api-tests.outputs.summary }}
+  run: echo ${{ steps.run-newman.outputs.summary }}
 ```
 
 ----
