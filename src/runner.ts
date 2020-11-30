@@ -6,7 +6,6 @@ export async function run(
   options: newman.NewmanRunOptions
 ): Promise<newman.NewmanRunSummary> {
   return new Promise(resolve => {
-    core.debug(`Started. suppressExitCode: ${options.suppressExitCode}`)
     newman
       .run(options)
       .on('start', (): void => {

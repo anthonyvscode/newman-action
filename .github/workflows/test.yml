@@ -32,7 +32,7 @@ jobs:
       with:
         collection: "./__tests__/collection_failure.json"
         reporters: cli
-        suppressExitCode: "true"
+        suppressExitCode: "false"
     
     - name: Export Summary from Outputs
       run: |
