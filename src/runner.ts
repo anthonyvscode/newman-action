@@ -5,16 +5,14 @@ import * as utils from './utils'
 export async function run(
   options: newman.NewmanRunOptions
 ): Promise<newman.NewmanRunSummary> {
-  return new Promise(resolve => {
-    console.log('entered into newman run');
-    console.log("suppressExitCode: " + options.suppressExitCode);
+  return new Promise(resolve => {    
+    core.debug(`Started. suppressExitCode: ${options.suppressExitCode}`)
     newman
       .run(options)
       .on('start', (): void => {
         core.debug(`beginning collection run`)
       })
       .on('done', (err: Error, summary: newman.NewmanRunSummary): void => {
-        console.log("suppressExitCode: " + options.suppressExitCode);
         if (!options.suppressExitCode && (err || summary.error || summary.run.failures.length)) {
           core.setFailed(`Newman run failed! ${err || ''}`)
         } else {
