@@ -5,7 +5,7 @@ import * as utils from './utils'
 export async function run(
   options: newman.NewmanRunOptions
 ): Promise<newman.NewmanRunSummary> {
-  return new Promise(resolve => {    
+  return new Promise(resolve => {
     core.debug(`Started. suppressExitCode: ${options.suppressExitCode}`)
     newman
       .run(options)
@@ -13,7 +13,10 @@ export async function run(
         core.debug(`beginning collection run`)
       })
       .on('done', (err: Error, summary: newman.NewmanRunSummary): void => {
-        if (!options.suppressExitCode && (err || summary.error || summary.run.failures.length)) {
+        if (
+          !options.suppressExitCode &&
+          (err || summary.error || summary.run.failures.length)
+        ) {
           core.setFailed(`Newman run failed! ${err || ''}`)
         } else {
           core.debug('collection run completed.')
