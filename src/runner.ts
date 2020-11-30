@@ -12,7 +12,10 @@ export async function run(
         core.debug(`beginning collection run`)
       })
       .on('done', (err: Error, summary: newman.NewmanRunSummary): void => {
-        if (err || summary.error || summary.run.failures.length) {
+        if (
+          !options.suppressExitCode &&
+          (err || summary.error || summary.run.failures.length)
+        ) {
           core.setFailed(`Newman run failed! ${err || ''}`)
         } else {
           core.debug('collection run completed.')

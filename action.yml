@@ -59,7 +59,7 @@ inputs:
     required: false
     default: 'false'
   suppressExitCode:
-    description: 'Always exit cleanly'
+    description: 'Always exit cleanly. This will always ensure that it will pass in the Github action even if a test case fails.'
     required: false
     default: 'false'
   reporters:
