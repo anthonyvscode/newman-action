@@ -20,7 +20,6 @@ inputs:
   iterationCount:
     description: 'Number of iterations to run on the collection'
     required: false
-    default: '1'
   iterationData:
     description: 'Path to CSV or JSON data file'
     required: false
