@@ -8,7 +8,9 @@ async function run(): Promise<void> {
     const summary: newman.NewmanRunSummary = await runner.run(options)
     await outputSummary(summary)
   } catch (error) {
-    core.setFailed(error.message)
+    if (error instanceof Error) {
+      core.setFailed(error.message)
+    }
   }
 }
 
