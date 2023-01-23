@@ -103,7 +103,7 @@ export function getCollection(apiKey: string, collection: string): string {
     if (!apiKey)
       throw new Error('apiKey is required when using collection_uuid')
 
-    return `${apiBase}/collections/${collection}?apikey=${apiKey}`
+    return `${apiBase}/collections/${collection}?access_key=${apiKey}`
   }
 
   return collection
