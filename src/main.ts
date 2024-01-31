@@ -17,7 +17,7 @@ async function run(): Promise<void> {
 async function outputSummary(summary: newman.NewmanRunSummary): Promise<void> {
   core.setOutput('summary_full', JSON.stringify(summary))
 
-  // Just pull out the miminum parts for each failure
+  // Just pull out the minimum parts for each failure
   const failures: FailureSummary[] = []
 
   for (let i = 0, len = summary.run.failures.length; i < len; i++) {
